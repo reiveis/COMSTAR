@@ -1,0 +1,20 @@
+﻿@model COMSTAR.Models.Events
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="event-details container">
+    <div class="event-details-text" style="margin-top: 2em;">
+        <h1 class="tagline">@Html.DisplayFor(model => model.EventName)</h1>
+
+        <h2 class="event-details-date" style="font-size: 1.2em;">@Html.DisplayFor(model => model.EventDate, "ShortDateTime") <b class="event-visibility" style="color: #fffca0;">@Html.DisplayFor(model => model.EventTarget)</b></h2>
+        @if (Model.EventImage != null)
+        {
+            <div class="event-img" style="margin-top: 3em;">
+                <img src="data:image;base64,@System.Convert.ToBase64String(Model.EventImage)" class="event-details-img-m" style="height: 30em; width: auto;">
+            </div>
+        }
+        <p class="event-details-description" style="font-size: 1em;">@Html.DisplayFor(model => model.EventDescription)</p>
+    </div>
+</div>

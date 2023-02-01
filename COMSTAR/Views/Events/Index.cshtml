@@ -1,0 +1,33 @@
+﻿@model IEnumerable<COMSTAR.Models.Events>
+
+@{
+    ViewData["Title"] = "Events";
+}
+<div class="container">
+    <h1 class="tagline" style="margin-top: 1em;">Upcoming Events</h1>
+    <div class="index-event-cards">
+        @foreach(var item in Model){
+            <a class="index-event-link" asp-action="Details" asp-route-id="@item.EventId">
+                <div class="index-event-card">
+                    @if (item.EventImage != null)
+                    {
+                        <div class="event-img">
+                            <img src="data:image;base64,@System.Convert.ToBase64String(item.EventImage)" class="event-img-m">
+                        </div>
+                    }
+                    else { 
+                        <div class="event-img">
+                            <img src="~/img/amir-logo-cs.png"  class="event-img-m" style="object-fit: contain !important;">
+                        </div>
+                    }
+                    <div class="event-desc">
+                        <h1 class="index-event-title" style="font-size: 2em;">@Html.DisplayFor(modelItem => item.EventName)</h1>
+                        <hr class="ev-h-line"/>
+                        <h2 class="event-date" style="font-size: 1.2em;">@Convert.ToDateTime(item.EventDate).ToString("dddd, dd MMMM yyyy h:mmtt")  <b class="event-visibility" style="color: #13111f;">@Html.DisplayFor(modelItem => item.EventTarget)</b></h2>
+                        <p class="event-description" style="font-size: 1em;">@Html.DisplayFor(modelItem => item.EventDescription)</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

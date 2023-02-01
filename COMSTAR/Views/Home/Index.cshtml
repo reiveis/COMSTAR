@@ -1,0 +1,67 @@
+﻿@model IEnumerable<COMSTAR.Models.Events>
+@{
+    ViewData["Title"] = "Home Page";
+    ViewBag.Uncontainerize = true;
+}
+
+<div class="top-and-img">
+    <div class="ind-top">
+        <div class="cont-top container">
+            <img src="~/img/amir-logo-cs.png" class="logo">
+            <h1 class="tagline">UTM Kuala Lumpur</h1>
+        </div>
+        <div class="home-content container">
+            <a href="https://github.com/reiveis" target="_blank" class="gh-link">
+                <div class="card-box">
+                    <h1 class="tagline" style="color: #fb9e99;">&lt;/&gt;</h1>
+                    <h1 class="tagline">Where <span class="rotator" style="white-space: normal;"></span></h1>
+                    <h1 class="tagline"> are born.</h1>
+                </div>
+            </a>
+
+            <div class="para-cont">
+                <div class="intro-para-div">
+                    <p class="intro-para">Welcome to the <span style="color: #13111f; display: inline-block; overflow-wrap: break-word; background-color: #fb9e99; padding: 0.1em; ">COMSTAR UTMKL</span> Official Website. <br>Home of the UTMKL Computer Science students.</p>
+                </div>
+                <div class="intro-buttons">
+                    <a href="/Home/About/" class="gen-button">About Us</a>
+                    <a href="" class="gen-button">Meet The Team</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="events container">
+    <a href="/Events/" class="gh-link"><h1 class="tagline">Upcoming Events</h1></a>
+    <div class="event-cards">
+        @foreach (var item in Model)
+        {
+            <a class="event-link" asp-controller="Events" asp-action="Details" asp-route-id="@item.EventId">
+                <div class="event-card">
+                    @if (item.EventImage != null)
+                    {
+                        <div class="event-img">
+                            <img src="data:image;base64,@System.Convert.ToBase64String(item.EventImage)"  class="event-img-m">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="event-img">
+                            <img src="~/img/amir-logo-cs.png"  class="event-img-m" style="object-fit: contain !important;">
+                        </div>
+                    }
+                    <div class="event-desc">
+                        @if(item.EventDate.Date == DateTime.Now.Date)
+                        {
+                            <b class="event-visibility" style="color: #ffffff; background-color: #13111f; padding: 0.2em">Happening Today!</b>
+                        }
+                        <h1 class="event-title" style="font-size: 2em;">@Html.DisplayFor(modelItem => item.EventName)</h1>
+                        <hr class="ev-h-line"/>
+                        <h2 class="event-date" style="font-size: 1.2em;">@Convert.ToDateTime(item.EventDate).ToString("dddd, dd MMMM yyyy h:mmtt") <b class="event-visibility" style="color: #13111f;">@Html.DisplayFor(modelItem => item.EventTarget)</b></h2>
+                        <p class="event-description" style="font-size: 1em;">@Html.DisplayFor(modelItem => item.EventDescription)</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
